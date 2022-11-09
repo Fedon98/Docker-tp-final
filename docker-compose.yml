@@ -1,0 +1,41 @@
+version: '3.3'
+services:
+  web:
+    build: 
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: "laravelapp"
+    ports:
+      - 80:80
+    volumes:    
+      - ./laravel/:/var/www/html
+    depends_on: 
+      - mysql
+  web2:
+    build: 
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: "laravelapp2"
+    ports:
+      - 8080:80
+    volumes:    
+      - ./laravel2/:/var/www/html
+    depends_on: 
+      - mysql
+  mysql:
+      image: mysql:latest
+      container_name: 'db'
+      restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: 'root'
+        MYSQL_DATABASE: 'dbdocker'
+        MYSQL_USER: 'user'
+        MYSQL_PASSWORD: 'root'
+      ports:
+        - 3306:3306
+      volumes:
+        - ./mysql:/docker-entrypoint-initdb.d
+      command: --default-authentication-plugin=mysql_native_password
+
+
+
