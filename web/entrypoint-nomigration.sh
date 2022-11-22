@@ -7,7 +7,5 @@ php artisan breeze:install
 php artisan key:generate
 npm install
 npm run build
-php artisan migrate:fresh --seed
 service apache2 start
 tail -f /dev/null
-

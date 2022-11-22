@@ -27,8 +27,15 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install zip \
     && docker-php-source delete
 
+RUN apt-get update && apt-get install -y \
+    software-properties-common \
+    npm
+RUN npm install npm@latest -g && \
+    npm install n -g && \
+    n latest
 
-COPY vhost.conf /etc/apache2/sites-available/000-default.conf
+
+COPY /web/vhost.conf /etc/apache2/sites-available/000-default.conf
 
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -37,7 +44,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN chown -R www-data:www-data /var/www/html \
     && a2enmod rewrite
 
-COPY entrypoint.sh /entrypoint.sh
+COPY /web/entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
 

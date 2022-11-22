@@ -2,8 +2,8 @@ version: '3.3'
 services:
   web:
     build: 
-      context: ./web
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: ./docker-laravel/Dockerfile
     container_name: "laravelapp"
     ports:
       - 80:80
@@ -13,8 +13,8 @@ services:
       - mysql
   web2:
     build: 
-      context: ./web
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: ./docker-laravel2/Dockerfile
     container_name: "laravelapp2"
     ports:
       - 8080:80
